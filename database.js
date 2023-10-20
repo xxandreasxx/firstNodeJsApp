@@ -1,5 +1,8 @@
 import mysql from 'mysql2'
 import dotenv from 'dotenv'
+import { v4 as uuidv4 } from 'uuid'
+
+
 dotenv.config()
 
 const pool = mysql.createPool({
@@ -9,5 +12,24 @@ const pool = mysql.createPool({
     database: process.env.MYSQL_DATABASE
 }).promise()
 
-const result = await pool.query("SELECT * FROM users")
-console.log(result[0])
+async function getUsers() {
+    const result = await pool.query("SELECT * FROM users")
+    return result[0]
+}
+
+async function getUser(id) {
+    const [result] = await pool.query(`
+    select * from users where id = ?
+    `, [id])
+    return result[0]
+}
+
+async function createUser(firstName, lastName) {
+    const newUuid = uuidv4();
+    const [result] = await pool.query(`insert into users (id, firstName, lastName) values (?, ?, ?)`,
+        [newUuid, firstName, lastName])
+    return getUser(newUuid)
+}
+
+const result = await createUser('Kamiel', 'Hoskens')
+console.log(result)
