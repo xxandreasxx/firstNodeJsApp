@@ -1,8 +1,11 @@
 import mysql from 'mysql2'
 
-mysql.createPool({
-    host: "127.0.0.1",
-    user: "root",
-    password: "",
-    database: "nodejs_app"
+const pool = mysql.createPool({
+    host: process.env.HOST,
+    user: process.env.USER,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE
 }).promise()
+
+const result = await pool.query("SELECT * FROM users")
+console.log(result[0])
