@@ -30,3 +30,5 @@ export async function createUser(firstName, lastName) {
         [newUuid, firstName, lastName])
     return getUser(newUuid)
 }
+
+//added small comment to test
