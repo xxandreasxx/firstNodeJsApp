@@ -2,7 +2,6 @@ import mysql from 'mysql2'
 import dotenv from 'dotenv'
 import { v4 as uuidv4 } from 'uuid'
 
-
 dotenv.config()
 
 const pool = mysql.createPool({
@@ -30,5 +29,3 @@ export async function createUser(firstName, lastName) {
         [newUuid, firstName, lastName])
     return getUser(newUuid)
 }
-
-//added small comment to test
