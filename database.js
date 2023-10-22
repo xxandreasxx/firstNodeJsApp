@@ -29,3 +29,20 @@ export async function createUser(firstName, lastName) {
         [newUuid, firstName, lastName])
     return getUser(newUuid)
 }
+
+export async function getTeams() {
+    const result = await pool.query(`select * from teams`)
+    return result[0]
+}
+
+export async function getTeam(id) {
+    const [result] = await pool.query(`select * from users where id = ?`, [id])
+    return result[0]
+}
+
+export async function createTeam(name) {
+    const newUuid = uuidv4()
+    const [result] = await pool.query(`insert into teams (id, name) values (?, ?)`,
+        [newUuid, name])
+    return getTeam(newUuid)
+}
