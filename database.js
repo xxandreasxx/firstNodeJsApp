@@ -17,9 +17,7 @@ export async function getUsers() {
 }
 
 export async function getUser(id) {
-    const [result] = await pool.query(`
-    select * from users where id = ?
-    `, [id])
+    const [result] = await pool.query(`select * from users where id = ?`, [id])
     return result[0]
 }
 
@@ -36,7 +34,7 @@ export async function getTeams() {
 }
 
 export async function getTeam(id) {
-    const [result] = await pool.query(`select * from users where id = ?`, [id])
+    const [result] = await pool.query(`select * from teams where id = ?`, [id])
     return result[0]
 }
 

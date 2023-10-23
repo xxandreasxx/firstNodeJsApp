@@ -1,6 +1,6 @@
 import express from 'express'
 
-import { getUser, getUsers } from './database.js'
+import { getUser, getUsers, getTeams, getTeam } from './database.js'
 
 const app = express()
 
@@ -23,4 +23,15 @@ app.get("/users/:id", async (req, res) => {
     const userId = req.params.id
     const user = await getUser(userId)
     res.send(user)
+})
+
+app.get("/teams", async (req, res) => {
+    const teams = await getTeams()
+    res.send(teams)
+})
+
+app.get("/teams/:id", async (req, res) => {
+    const teamId = req.params.id
+    const team = await getTeam(teamId)
+    res.send(team)
 })
