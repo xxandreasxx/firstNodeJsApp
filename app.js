@@ -1,8 +1,18 @@
 import express from 'express'
 
-import { getTeam, getTeams, getUser, getUsers } from './database'
+import { getUser, getUsers } from './database.js'
 
 const app = express()
+
+app.listen(8080, () => {
+    console.log('Server is running on port 8080')
+})
+
+app.use((err, req, res, next) => {
+    console.error(err.stack)
+    res.status(500).send('something broke!')
+})
+
 
 app.get("/users", async (req, res) => {
     const users = await getUsers()
@@ -14,12 +24,3 @@ app.get("/users/:id", async (req, res) => {
     const user = await getUser(userId)
     res.send(user)
 })
-
-app.use((err, req, res, next) => {
-    console.error(err.stack)
-    res.status(500).send('something broke!')
-})
-
-app.listen(8080, () => {
-    console.log('Server is running on port 8080')
-}) 
