@@ -16,22 +16,38 @@ app.use((err, req, res, next) => {
 
 app.get("/users", async (req, res) => {
     const users = await getUsers()
-    res.send(users)
+    if (users) {
+        res.send(users)
+    } else {
+        res.status(404).json({ message: 'No users found' })
+    }
 })
 
 app.get("/users/:id", async (req, res) => {
     const userId = req.params.id
     const user = await getUser(userId)
-    res.send(user)
+    if (user) {
+        res.send(user)
+    } else {
+        res.status(404).json({ message: 'user not found or does not exist' })
+    }
 })
 
 app.get("/teams", async (req, res) => {
     const teams = await getTeams()
-    res.send(teams)
+    if (teams) {
+        res.send(teams)
+    } else {
+        res.status(404).json({ message: 'No teams found' })
+    }
 })
 
 app.get("/teams/:id", async (req, res) => {
     const teamId = req.params.id
     const team = await getTeam(teamId)
-    res.send(team)
+    if (team) {
+        res.send(team)
+    } else {
+        res.status(404).json({ message: 'Team not found or does not exist' })
+    }
 })
