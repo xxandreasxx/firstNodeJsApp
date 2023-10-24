@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
 app.get("/users", async (req, res) => {
     const users = await getUsers()
     if (users) {
-        res.send(users)
+        res.json(users)
     } else {
         res.status(404).json({ message: 'No users found' })
     }
@@ -37,7 +37,7 @@ app.get("/users/:id", async (req, res) => {
     const userId = req.params.id
     const user = await getUser(userId)
     if (user) {
-        res.send(user)
+        res.json(user)
     } else {
         res.status(404).json({ message: 'user not found or does not exist' })
     }
@@ -46,7 +46,7 @@ app.get("/users/:id", async (req, res) => {
 app.get("/teams", async (req, res) => {
     const teams = await getTeams()
     if (teams) {
-        res.send(teams)
+        res.json(teams)
     } else {
         res.status(404).json({ message: 'No teams found' })
     }
@@ -56,7 +56,7 @@ app.get("/teams/:id", async (req, res) => {
     const teamId = req.params.id
     const team = await getTeam(teamId)
     if (team) {
-        res.send(team)
+        res.json(team)
     } else {
         res.status(404).json({ message: 'Team not found or does not exist' })
     }
