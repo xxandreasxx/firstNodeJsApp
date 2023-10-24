@@ -2,6 +2,12 @@ import express from 'express'
 
 import { getUser, getUsers, getTeams, getTeam } from './database.js'
 
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express()
 
 app.listen(8080, () => {
@@ -11,6 +17,10 @@ app.listen(8080, () => {
 app.use((err, req, res, next) => {
     console.error(err.stack)
     res.status(500).send('something broke!')
+})
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'index.html'))
 })
 
 
